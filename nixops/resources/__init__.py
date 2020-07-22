@@ -341,7 +341,13 @@ class DiffEngineResourceState(
         nixops.resources.ResourceState.__init__(self, depl, name, id)
         self._state = StateDict(depl, id)
 
-    def create(self, defn, check, allow_reboot, allow_recreate):
+    def create(
+        self,
+        defn: ResourceDefinitionType,
+        check: bool,
+        allow_reboot: bool,
+        allow_recreate: bool,
+    ):
         # if --check is true check against the api and update the state
         # before firing up the diff engine in order to get the needed
         # handlers calls
@@ -363,11 +369,15 @@ class DiffEngineResourceState(
                 )
             )
 
-    def setup_diff_engine(self, config):
+    def setup_diff_engine(self, defn: ResourceDefinitionType):
         diff_engine = Diff(
             depl=self.depl,
             logger=self.logger,
+<<<<<<< HEAD
             config=dict(config),
+=======
+            defn=defn,
+>>>>>>> DiffEngine: Pass Definitions instead of raw evaluation data
             state=self._state,
             res_type=self.get_type(),
         )
